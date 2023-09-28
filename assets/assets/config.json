@@ -1,0 +1,31 @@
+{
+  "empresaId": "5a00ccc46961874af42ecfe5",
+  "grupoEmpresarialId": "5c06dcdda6a06b0b94e627b5",
+  "terminalId": "5c62132858959f6fd22c029d",
+  "baseRest": "https://atleta.esp.br/alphaws/",
+  "url": "https://atleta.esp.br",
+  "nomeServico": "alphaws",
+  "baseS3": "https://s3-sa-east-1.amazonaws.com/alphax-teste/",
+  "baseRestNfce": "https://nfe.alphax.jclan.com.br/alphanfews/webresources/nfe/",
+  "color": 4284513675,
+  "voltarAoInicio": true,
+  "mostrarMensagem": true,
+  "cardapioPadrao": true,
+  "dark": true,
+  "modoProducao": true,
+  "firebaseConfigWeb": {
+    "apiKey": "AIzaSyCVQi8NYU2OUTCB4nMMB13r8O70DhfbLL0",
+    "authDomain": "pedido-online-dcf32.firebaseapp.com",
+    "projectId": "pedido-online-dcf32",
+    "storageBucket": "pedido-online-dcf32.appspot.com",
+    "messagingSenderId": "223100500668",
+    "appId": "1:223100500668:web:859650f0ba4995be11eeb9"
+  },
+  "firebaseConfigAndroid": {
+    "apiKey": "AIzaSyCeiV207TlIhCqhzda55Dz_g8qnePSUUoA",
+    "projectId": "pedido-online-dcf32",
+    "storageBucket": "pedido-online-dcf32.appspot.com",
+    "messagingSenderId": "223100500668",
+    "appId": "1:223100500668:android:2ceb8611fe2927d311eeb9"
+  }
+}
