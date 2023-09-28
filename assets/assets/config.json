@@ -13,6 +13,7 @@
   "cardapioPadrao": true,
   "dark": true,
   "modoProducao": true,
+  "idTagManangerGoogle": "GTM-W3528TCW",
   "firebaseConfigWeb": {
     "apiKey": "AIzaSyCVQi8NYU2OUTCB4nMMB13r8O70DhfbLL0",
     "authDomain": "pedido-online-dcf32.firebaseapp.com",

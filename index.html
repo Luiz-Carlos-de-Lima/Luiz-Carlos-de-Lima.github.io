@@ -3,18 +3,32 @@
 
 <head>
   <script>
-    var idTagGoogleMananger = 'GTM-NV2ZRTHM';
+    var configXML = new XMLHttpRequest();
+    configXML.open("GET", '/assets/assets/config.json', true);
+    configXML.addEventListener('load', function () {
+      if (configXML.status == 200) {
+        let configJson = configXML.responseText;
+
+        if (configJson) {
+          var configObj = JSON.parse(configJson);
+          if (configObj.idTagManangerGoogle) {
+
+            (function (w, d, s, l, i) {
+              console.log(configObj.idTagManangerGoogle);
+              w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                  new Date().getTime(), event: 'gtm.js'
+              }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                  'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', configObj.idTagManangerGoogle);
+          }
+        }
+      }
+    });
+
+    configXML.send();
   </script>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-W3528TCW');</script>
-  <!-- End Google Tag Manager -->
 
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -56,7 +70,7 @@
   <link rel="manifest" href="manifest.json">
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "3502515524";
+    var serviceWorkerVersion = "3277073224";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -164,10 +178,29 @@
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W3528TCW" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <script>
+    var configXMLNoScript = new XMLHttpRequest();
+    configXMLNoScript.open("GET", '/assets/assets/config.json', true);
+    configXMLNoScript.addEventListener('load', function () {
+      if (configXMLNoScript.status == 200) {
+        let configJson = configXMLNoScript.responseText;
+
+        if (configJson) {
+          var configObj = JSON.parse(configJson);
+          if (configObj.idTagManangerGoogle) {
+
+            let noscriptElement = document.createElement('noscript');
+            noscriptElement.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${configObj.idTagManangerGoogle}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+
+            document.body.appendChild(noscriptElement);
+          }
+        }
+      }
+    });
+
+    configXMLNoScript.send();
+  </script>
+
   <div id="loading" class="loading">
     <div class="loader"></div>
   </div>
