@@ -3,31 +3,29 @@
 
 <head>
   <script>
-    var configXML = new XMLHttpRequest();
-    configXML.open("GET", '/assets/assets/config.json', true);
-    configXML.addEventListener('load', function () {
-      if (configXML.status == 200) {
-        let configJson = configXML.responseText;
-
-        if (configJson) {
-          var configObj = JSON.parse(configJson);
-          if (configObj.idTagManangerGoogle) {
-
-            (function (w, d, s, l, i) {
-              console.log(configObj.idTagManangerGoogle);
-              w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                  new Date().getTime(), event: 'gtm.js'
-              }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                  'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', configObj.idTagManangerGoogle);
-          }
+    fetch('/assets/assets/config.json')
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch config.json');
         }
-      }
-    });
-
-    configXML.send();
+      })
+      .then(configObj => {
+        if (configObj.idTagManangerGoogle) {
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+              'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+          })(window, document, 'script', 'dataLayer', configObj.idTagManangerGoogle);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   </script>
 
   <!--
@@ -70,7 +68,7 @@
   <link rel="manifest" href="manifest.json">
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "1077083696";
+    var serviceWorkerVersion = "612117085";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -179,31 +177,31 @@
 
 <body>
   <script>
-    var configXMLNoScript = new XMLHttpRequest();
-    configXMLNoScript.open("GET", '/assets/assets/config.json', true);
-    configXMLNoScript.addEventListener('load', function () {
-      if (configXMLNoScript.status == 200) {
-        let configJson = configXMLNoScript.responseText;
-
-        if (configJson) {
-          var configObj = JSON.parse(configJson);
-          if (configObj.idTagManangerGoogle) {
-
-            let noscriptElement = document.createElement('noscript');
-            noscriptElement.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${configObj.idTagManangerGoogle}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-
-            document.body.appendChild(noscriptElement);
-          }
+    fetch('/assets/assets/config.json')
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch config.json');
         }
-      }
-    });
+      })
+      .then(configObj => {
+        if (configObj.idTagManangerGoogle) {
+          let noscriptElement = document.createElement('noscript');
+          noscriptElement.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${configObj.idTagManangerGoogle}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
 
-    configXMLNoScript.send();
+          document.body.appendChild(noscriptElement);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   </script>
 
   <div id="loading" class="loading">
     <div class="loader"></div>
   </div>
+  
   <script>
     function launchFlutter() {
       // Download main.dart.js
@@ -220,76 +218,45 @@
       });
     }
 
-    function dialog() {
-      const dialog = document.createElement('div');
-      dialog.classList.add('dialog');
-      dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3 class="title">Atualização Disponível!</h3>
-            <p>Uma nova versão do aplicativo está disponível. Por favor, atualize a página.</p>
-            <button id="buttonUpdate" class="button-update">Atualizar</button>
-        </div>
-    `;
-      document.body.appendChild(dialog);
-
-      const closeButton = document.getElementById('buttonUpdate');
-      closeButton.addEventListener('click', () => {
-        location.reload();
-        dialog.remove();
-      });
-    }
-
     window.addEventListener('load', function (ev) {
       if ('serviceWorker' in navigator) {
-        // getting rid of undesired to fetch remote version.json file updated
-        var seconds = new Date().getTime();
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", '/version.json', true);
-        xmlhttp.addEventListener('load', function () {
-          if (xmlhttp.status == 200) {
-            var buildNumber = xmlhttp.responseText;
+        fetch('/version.json')
+          .then(response => {
+            if (response.status === 200) {
+              return response.text();
+            } else {
+              throw new Error('Failed to fetch version.json');
+            }
+          })
+          .then(buildNumber => {
             var currentBuildNumber = window.localStorage.getItem('buildNumber');
-            // clear worker cache if remote and local version are different
+            // Clear worker cache if remote and local version are different
             if (currentBuildNumber) {
               if (currentBuildNumber != buildNumber) {
+                console.log('limpando o cach pois a versão é diferente');
                 caches.delete('flutter-app-manifest');
                 caches.delete('flutter-temp-cache');
                 caches.delete('flutter-app-cache');
                 sessionStorage.clear();
-                dialog();
-
-                // save new version number
                 window.localStorage.setItem('buildNumber', buildNumber);
               } else {
+                console.log('versão é igual');
                 window.localStorage.setItem('buildNumber', buildNumber);
-                launchFlutter();
               }
             } else {
+              console.log('Limpando o cache não se sabe se tem algo');
               caches.delete('flutter-app-manifest');
               caches.delete('flutter-temp-cache');
               caches.delete('flutter-app-cache');
               sessionStorage.clear();
               window.localStorage.setItem('buildNumber', buildNumber);
-              launchFlutter();
             }
-          } else {
+
             launchFlutter();
-          }
-        });
-
-        xmlhttp.addEventListener('error', function () {
-          launchFlutter();
-        });
-
-        xmlhttp.addEventListener('abort', function () {
-          launchFlutter();
-        });
-
-        xmlhttp.addEventListener('timeout', function () {
-          launchFlutter();
-        });
-
-        xmlhttp.send();
+          })
+          .catch(() => {
+            launchFlutter();
+          });
       } else {
         launchFlutter();
       }
