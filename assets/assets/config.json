@@ -12,7 +12,7 @@
   "mostrarMensagem": true,
   "cardapioPadrao": true,
   "dark": true,
-  "modoProducao": true,
+  "devMode": true,
   "idTagManangerGoogle": "GTM-NF9D7RXT",
   "firebaseConfigWeb": {
     "apiKey": "AIzaSyCVQi8NYU2OUTCB4nMMB13r8O70DhfbLL0",
