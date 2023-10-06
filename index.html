@@ -2,32 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-  <!-- <script>
-    fetch('/assets/assets/config.json')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Failed to fetch config.json');
-        }
-      })
-      .then(configObj => {
-        if (configObj.idTagManangerGoogle) {
-          (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-              'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-              j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-          })(window, document, 'script', 'dataLayer', configObj.idTagManangerGoogle);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  </script> -->
-
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -68,7 +42,7 @@
   <link rel="manifest" href="manifest.json">
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = "76380110";
+    var serviceWorkerVersion = "4156116616";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -127,28 +101,6 @@
 </head>
 
 <body>
-  <!-- <script>
-    fetch('/assets/assets/config.json')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Failed to fetch config.json');
-        }
-      })
-      .then(configObj => {
-        if (configObj.idTagManangerGoogle) {
-          let noscriptElement = document.createElement('noscript');
-          noscriptElement.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${configObj.idTagManangerGoogle}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-
-          document.body.appendChild(noscriptElement);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  </script> -->
-
   <div id="loading" class="loading">
     <div class="loader"></div>
   </div>
